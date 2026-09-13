@@ -7,6 +7,7 @@ def install(pkg):
         __import__(pkg)
     except ImportError:
         subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", pkg])
+        print(f"installing {pkg}")
 
 
 for p in [

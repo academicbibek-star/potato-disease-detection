@@ -72,24 +72,24 @@ Author: AI-assisted project, August 2026
 # ============================================================
 # CELL 1: Setup & Installation
 # ============================================================
-import subprocess
-import sys
+# import subprocess
+# import sys
 
 
-def install(pkg):
-    try:
-        __import__(pkg)
-    except ImportError:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", pkg])
+# def install(pkg):
+#     try:
+#         __import__(pkg)
+#     except ImportError:
+#         subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", pkg])
 
 
-for p in [
-    "timm", "albumentations", "imagehash", "scikit-learn", "pandas",
-    "matplotlib", "seaborn", "opencv-python-headless", "scipy"
-]:
-    install(p)
+# for p in [
+#     "timm", "albumentations", "imagehash", "scikit-learn", "pandas",
+#     "matplotlib", "seaborn", "opencv-python-headless", "scipy"
+# ]:
+#     install(p)
 
-print("All dependencies installed.")
+# print("All dependencies installed.")
 
 # ============================================================
 # CELL 2: Imports & Configuration
@@ -196,8 +196,9 @@ try:
     DATA_DIR = Path("/content/drive/MyDrive/dataset")
     print(f"Mounted Drive. DATA_DIR = {DATA_DIR}")
 except ImportError:
-    DATA_DIR = Path(r"C:\Users\shadb\Downloads\dataset")
-    print(f"Local mode. DATA_DIR = {DATA_DIR}")
+    print("unable to mount google drive")
+    # DATA_DIR = Path(r"C:\Users\shadb\Downloads\dataset")
+    # print(f"Local mode. DATA_DIR = {DATA_DIR}")
 
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
