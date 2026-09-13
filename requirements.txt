@@ -1,0 +1,9 @@
+albumentations
+imagehash
+matplotlib
+opencv-python-headless
+pandas
+scikit-learn
+scipy
+seaborn
+timm
