@@ -131,6 +131,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 SEED = 42
 DATA_DIR = Path("content/dataset")
 RESULTS_DIR = Path("content/results")
+DATA_DIR.mkdir()
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 IPD_CLASSES = ["earlyblt", "healthy", "lateblt"]
