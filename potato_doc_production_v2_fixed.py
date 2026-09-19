@@ -12,6 +12,7 @@ Requirements:
     pip install torch torchvision timm albumentations imagehash scikit-learn pandas matplotlib seaborn opencv-python-headless scipy
 
 Author: AI-assisted project, August 2026
+
 """
 
 # ============================================================
@@ -94,6 +95,7 @@ Author: AI-assisted project, August 2026
 # ============================================================
 # CELL 2: Imports & Configuration
 # ============================================================
+#Core functional libraries
 import os
 import json
 import time
@@ -104,12 +106,14 @@ import warnings
 from pathlib import Path
 from collections import Counter
 
+#dependent libraries
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from PIL import Image
 
+#ML libraries
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -129,11 +133,18 @@ from timm.loss import SoftTargetCrossEntropy
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 SEED = 42
-DATA_DIR = Path("content/dataset")
-RESULTS_DIR = Path("content/results")
-DATA_DIR.mkdir()
+
+#directory handling
+BASE_DIR = Path(__file__).resolve().parent
+#DATA_DIR = Path("content/dataset")
+DATA_DIR=BASE_DIR / "content"/"dataset"
+# RESULTS_DIR = Path("content/results")
+RESULTS_DIR=BASE_DIR /"content"/"results"
+
+DATA_DIR.mkdir(parents=True,exist_ok=True)
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
+#Basic parameter defining
 IPD_CLASSES = ["earlyblt", "healthy", "lateblt"]
 IPD_CLASS_NAMES = ["Early Blight", "Healthy", "Late Blight"]
 NUM_CLASSES = 3
@@ -191,19 +202,22 @@ set_seed(SEED)
 # ============================================================
 # CELL 3: Mount Drive & Locate Data
 # ============================================================
-try:
-    from google.colab import drive
-    drive.mount('/content/drive')
-    DATA_DIR = Path("/content/drive/MyDrive/dataset")
-    print(f"Mounted Drive. DATA_DIR = {DATA_DIR}")
-except ImportError:
-    print("unable to mount google drive")
-    # DATA_DIR = Path(r"C:\Users\shadb\Downloads\dataset")
-    # print(f"Local mode. DATA_DIR = {DATA_DIR}")
+#But what this code will do here?
+# try:
+#     from google.colab import drive
+#     drive.mount('/content/drive')
+#     DATA_DIR = Path("/content/drive/MyDrive/dataset")
+#     print(f"Mounted Drive. DATA_DIR = {DATA_DIR}")
+# except ImportError:
+#     print("unable to mount google drive")
+#     # DATA_DIR = Path(r"C:\Users\shadb\Downloads\dataset")
+#     # print(f"Local mode. DATA_DIR = {DATA_DIR}")
 
-RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+#The following line is removed as it is redundant
+#RESULTS_DIR.mkdir(parents=True, exist_ok=True) 
 
 ipd_ok = all((DATA_DIR / c / c).exists() for c in IPD_CLASSES)
+#the above line of code assigns ipd_ok to 'False' because no such directories yet exists
 print(f"IPD structure OK: {ipd_ok}")
 for c in IPD_CLASSES:
     n = len(list((DATA_DIR / c / c).glob("*.*")))
