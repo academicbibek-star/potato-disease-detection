@@ -225,7 +225,7 @@ for c in IPD_CLASSES:
 
 pld_root = DATA_DIR / "PLD" / "Potato Leaf Disease Dataset in Uncontrolled Environment"
 print(f"\nPLD exists: {pld_root.exists()}")
-if pld_root.exists():
+if pld_root.exists(): #evaluates to false no code execution inside this block
     for d in sorted(pld_root.iterdir()):
         if d.is_dir():
             n = len(list(d.glob("*.*")))
@@ -239,6 +239,7 @@ def scan_ipd():
     records = []
     for cls_idx, cls_name in enumerate(IPD_CLASSES):
         cls_dir = DATA_DIR / cls_name / cls_name
+#this code only doesnot create any directory: raises FileNotFound Error
         for f in sorted(cls_dir.iterdir()):
             if f.suffix.lower() in (".jpg", ".jpeg", ".png"):
                 records.append({"path": str(f), "class": cls_name, "class_idx": cls_idx})
@@ -247,7 +248,7 @@ def scan_ipd():
 
 print("Scanning IPD...")
 t0 = time.time()
-df_ipd = scan_ipd()
+df_ipd = scan_ipd() #returns None and all the lines depending on this wont work afterward
 print(f"  Scanned {len(df_ipd)} images in {time.time()-t0:.1f}s")
 
 print("\n=== IPD Class Distribution ===")
