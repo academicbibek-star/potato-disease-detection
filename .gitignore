@@ -1,3 +1,8 @@
 potato-disease
 potato-disease.pub
 potato_venv
+potato-disease-key
+potato-disease-key.pub
+.gitignore
+datasets/
+potato_dataset/
