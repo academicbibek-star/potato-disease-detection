@@ -1,13 +1,16 @@
 from pathlib import Path
 import tensorflow as tf
 
+from tensorflow.keras import layers, models
+
 #the folder structure: potato_dataset/healthy; /early_blt /late_blt
 DATA_DIR = Path("potato_dataset")
 
-# 2. Image configuration
+# 2. configurations
 IMAGE_SIZE = (128, 128)
 BATCH_SIZE = 32
 SEED = 42
+NUM_CLASSES = 3
 
 # 3. Load training data and create a validation split
 train_ds = tf.keras.utils.image_dataset_from_directory(
@@ -65,3 +68,36 @@ for images, labels in train_ds.take(1):
     print("Label batch shape:", labels.shape)
     print("First 5 labels:", labels[:5].numpy())
 
+
+
+#model definition
+model=models.Sequential([
+    #Input: 128 x 128 x 3
+    layers.Input(shape=(128,128,3)),
+
+    #learn low-level visual features
+    layers.Conv2D(
+        32, kernel_size=3, padding="same",
+        activation='relu'
+    ),
+    layers.MaxPooling2D(pool_size=2),
+
+    #learn more complex features
+    layers.Conv2D(
+        128, kernel_size=3, padding='same',
+        activation='relu'
+    ),
+    layers.MaxPool2D(pool_size=2),
+
+    #classification head
+    layers.Flatten(),
+    layers.Dense(128, activation='relu'),
+    layers.Dropout(0.3),
+    layers.Dense(NUM_CLASSES, activation='softmax')
+])
+model.compile(
+    optimizer="adam",
+    loss="sparse_categorical_crossentropy",
+    metrics=['accuracy']
+)
+model.summary()
