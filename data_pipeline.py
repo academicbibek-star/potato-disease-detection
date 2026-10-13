@@ -101,3 +101,15 @@ model.compile(
     metrics=['accuracy']
 )
 model.summary()
+
+print("Class mapping:", train_ds.class_names
+      if hasattr(train_ds, "class_names") else class_names)
+
+history = model.fit(
+    train_ds,
+    validation_data=val_ds,
+    epochs=10
+)
+
+# Save the trained model
+model.save("potato_disease_cnn.keras")
