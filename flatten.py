@@ -1,9 +1,24 @@
+
+
 from pathlib import Path
 import shutil
 script_dir = Path(__file__).parent.resolve()
-
+# if the directory has the structure like 
+# main_folder/
+#   subfolder1/
+#       file1
+#       file2
+#       ....
+#   subfolder2/
+#       file1
+#       file2
+#       ....
+#   subfolder3/
+# this scripts flattens all subfolders and keep all the files 
+# in the main folder
 for subfolder in list(script_dir.iterdir()):
     if subfolder.is_dir():
+
         for file_path in list(subfolder.rglob('*')):
             if file_path.is_file():
                 destination_path = script_dir / file_path.name
